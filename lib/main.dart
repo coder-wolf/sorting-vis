@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'dart:math';
 import 'constants.dart';
 
 void main() {
@@ -26,12 +26,21 @@ class Startpoint extends StatefulWidget {
 }
 
 class _StartpointState extends State<Startpoint> {
+  @override
+  void initState() {
+    var random = new Random();
+    for (int i = 0; i < 10; i++) {
+      initArr.add(random.nextInt(100));
+    } // initializing the array with random numbers. We will run simulation on this later.
+    super.initState();
+  }
   // later take this input from user
 
-  var initArr = [41, 32, 43, 23, 54, 65, 76, 87, 98, 19];
+  var initArr = []; //[41, 32, 43, 23, 54, 65, 76, 87, 98, 19];
   var arr = []; //[41, 32, 43, 23, 54, 65, 76, 87, 98, 19];
   var iPointer = 0, jPointer = 0;
 
+  // DOC this is the bubble sort algorithm
   void bubbleSort() async {
     for (int i = 0; i < initArr.length; i++) {
       arr[i] = initArr[i];
@@ -61,6 +70,7 @@ class _StartpointState extends State<Startpoint> {
       // await Future.delayed(const Duration(seconds: 1), () {});
     }
   }
+  // note bubble sort ends here
 
   @override
   Widget build(BuildContext context) {
@@ -155,20 +165,30 @@ class _StartpointState extends State<Startpoint> {
               ],
             ),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: List<Widget>.generate(arr.length, (index) {
-                return Column(
-                  children: [
-                    // Spacer(),
-                    IndividualData(
-                      height: arr[index],
-                      sorted: index < iPointer,
-                      isPointed: index == iPointer || index == jPointer,
-                    ),
-                  ],
-                );
-              }),
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(),
+                Padding(
+                  padding: EdgeInsets.only(right: 55 * w, bottom: 20 * w),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List<Widget>.generate(arr.length, (index) {
+                      return Column(
+                        children: [
+                          // Spacer(),
+                          IndividualData(
+                            height: arr[index],
+                            sorted: index < iPointer,
+                            isPointed: index == iPointer || index == jPointer,
+                            isDone: iPointer == arr.length,
+                          ),
+                        ],
+                      );
+                    }),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -183,10 +203,12 @@ class IndividualData extends StatelessWidget {
     this.height,
     this.isPointed,
     this.sorted,
+    this.isDone,
   }) : super(key: key);
   var height;
   var isPointed;
   var sorted;
+  var isDone;
 
   @override
   Widget build(BuildContext context) {
@@ -194,8 +216,23 @@ class IndividualData extends StatelessWidget {
     return Column(
       children: [
         isPointed
-            ? Icon(Icons.arrow_circle_down_rounded,
-                color: Colors.deepPurpleAccent, size: w * 50)
+            ? isDone
+                ? Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(w * 300),
+                      color: Colors.green,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(w * 8.0),
+                      child: Icon(
+                        Icons.done,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                : Icon(Icons.arrow_circle_down_rounded,
+                    color: isDone ? Colors.green : Colors.amber[800],
+                    size: w * 50)
             : Container(),
         Text(height.toString()),
         SizedBox(
@@ -209,7 +246,8 @@ class IndividualData extends StatelessWidget {
               borderRadius: BorderRadius.circular(w * 5),
             ),
             width: w * 30,
-            height: height * 3 * w,
+            height:
+                (height + 1) * MediaQuery.of(context).size.height * (5 / 1000),
           ),
         ),
       ],
