@@ -112,7 +112,7 @@ class _StartpointState extends State<Startpoint> {
                                 ),
                               ]),
                           child: Padding(
-                            padding: EdgeInsets.all(w * 4),
+                            padding: EdgeInsets.all(w * 8),
                             child: Center(
                               child: Icon(
                                 Icons.play_arrow,
@@ -163,7 +163,7 @@ class _StartpointState extends State<Startpoint> {
                     // Spacer(),
                     IndividualData(
                       height: arr[index],
-                      sorted: index <= iPointer,
+                      sorted: index < iPointer,
                       isPointed: index == iPointer || index == jPointer,
                     ),
                   ],
