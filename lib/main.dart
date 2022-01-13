@@ -195,6 +195,7 @@ class _StartpointState extends State<Startpoint> {
                 //     ),
                 //   ),
                 // ),
+                Container(),
                 Padding(
                   padding: EdgeInsets.only(right: 55 * w, bottom: 50 * w),
                   child: Row(
