@@ -96,7 +96,7 @@ class _StartpointState extends State<Startpoint> {
                     Text(
                       "Bubble Sort",
                       style: TextStyle(
-                        fontSize: w * 30,
+                        fontSize: w * 30 > 20 ? w * 30 : 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -166,10 +166,37 @@ class _StartpointState extends State<Startpoint> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Container(),
+                // Expanded(
+                //   child: Padding(
+                //     padding: EdgeInsets.only(
+                //       left: w * 30,
+                //       right: w * 30,
+                //       top: 10 * w,
+                //       bottom: 50 * w,
+                //     ),
+                //     child: Container(
+                //       height: MediaQuery.of(context).size.height * (7 / 11),
+                //       width: MediaQuery.of(context).size.width * (3 / 8),
+                //       decoration: BoxDecoration(
+                //         // color: const Color(0xffFDF6E3),
+                //         borderRadius: BorderRadius.circular(w * 13),
+                //         // boxShadow: [
+                //         //   BoxShadow(
+                //         //     color: Colors.blueGrey.withOpacity(0.08),
+                //         //     spreadRadius: w * 10,
+                //         //     blurRadius: w * 25,
+                //         //     offset: Offset(-3, 3),
+                //         //   ),
+                //         // ],
+                //         border: Border.all(color: Colors.blueAccent),
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 Padding(
-                  padding: EdgeInsets.only(right: 55 * w, bottom: 20 * w),
+                  padding: EdgeInsets.only(right: 55 * w, bottom: 50 * w),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.center,
