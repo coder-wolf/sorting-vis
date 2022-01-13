@@ -209,7 +209,7 @@ class IndividualData extends StatelessWidget {
               borderRadius: BorderRadius.circular(w * 5),
             ),
             width: w * 30,
-            height: height * 4 * w,
+            height: height * 3 * w,
           ),
         ),
       ],
