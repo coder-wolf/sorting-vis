@@ -2,7 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../constants/size.dart';
+import '../../constants/size.dart';
+import 'widgets/bar_widget.dart';
 
 class SortingSim extends StatefulWidget {
   SortingSim({
@@ -28,7 +29,7 @@ class _SortingSimState extends State<SortingSim> {
     super.initState();
   }
 
-  void bubbleSort() async {
+  void inClassBubbleSort() async {
     for (int i = 0; i < initArr.length; i++) {
       arr[i] = initArr[i];
     }
@@ -112,30 +113,32 @@ class _SortingSimState extends State<SortingSim> {
                       );
                     })),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        var temp = Random().nextInt(100);
-                        initArr.add(temp);
-                        arr.add(temp);
-                      });
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(w * 15),
-                        border: Border.all(
-                          color: Colors.indigo,
-                          width: 1,
-                        ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(10 * w),
-                        child: Center(
-                          child: Icon(Icons.add),
-                        ),
-                      ),
-                    ),
-                  ),
+                  arr.length < 14
+                      ? GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              var temp = Random().nextInt(100);
+                              initArr.add(temp);
+                              arr.add(temp);
+                            });
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(w * 15),
+                              border: Border.all(
+                                color: Colors.indigo,
+                                width: 1,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(10 * w),
+                              child: Center(
+                                child: Icon(Icons.add),
+                              ),
+                            ),
+                          ),
+                        )
+                      : Container(),
                   Spacer(),
                   Row(
                     children: [
@@ -181,7 +184,7 @@ class _SortingSimState extends State<SortingSim> {
                               iPointer = 0;
                               jPointer = 0;
                             });
-                            bubbleSort();
+                            inClassBubbleSort();
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -226,7 +229,7 @@ class _SortingSimState extends State<SortingSim> {
                       children: List<Widget>.generate(
                         arr.length,
                         (index) {
-                          return IndividualData(
+                          return Bar(
                             height: arr[index],
                             sorted: index < iPointer,
                             isPointed: index == iPointer || index == jPointer,
@@ -242,64 +245,6 @@ class _SortingSimState extends State<SortingSim> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class IndividualData extends StatelessWidget {
-  IndividualData({
-    Key? key,
-    this.height,
-    this.isPointed,
-    this.sorted,
-    this.isDone,
-  }) : super(key: key);
-  var height;
-  var isPointed;
-  var sorted;
-  var isDone;
-
-  @override
-  Widget build(BuildContext context) {
-    print("$height ${w * 30}");
-    return Column(
-      children: [
-        isPointed
-            ? isDone
-                ? Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(w * 300),
-                      color: Colors.green,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(w * 8.0),
-                      child: Icon(
-                        Icons.done,
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
-                : Icon(Icons.arrow_circle_down_rounded,
-                    color: isDone ? Colors.green : Colors.amber[800],
-                    size: w * 50)
-            : Container(),
-        Text(height.toString()),
-        SizedBox(
-          height: w * 10,
-        ),
-        Padding(
-          padding: EdgeInsets.all(w * 10),
-          child: Container(
-            decoration: BoxDecoration(
-              color: sorted ? Colors.green[400] : Colors.indigo[400],
-              borderRadius: BorderRadius.circular(w * 5),
-            ),
-            width: w * 30,
-            height:
-                (height + 1) * MediaQuery.of(context).size.height * (5 / 1000),
-          ),
-        ),
-      ],
     );
   }
 }

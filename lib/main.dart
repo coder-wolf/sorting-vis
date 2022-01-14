@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/sorting_sim.dart';
+import 'screens/sorting_sim_page/sorting_sim.dart';
 
 void main() {
   runApp(MyApp());
